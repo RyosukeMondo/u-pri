@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "verified_on": "2026-10-24",
+  "assets": [
+    {
+      "id": "yuprir",
+      "filename": "yuprir-x64.zip",
+      "url": "https://www.post.japanpost.jp/yu-packprint-r/member/download/mdbinstall/%E3%82%86%E3%81%86%E3%83%97%E3%83%AAR%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%83%BC_64bit.ZIP",
+      "source_page": "https://www.post.japanpost.jp/yu-packprint-r/member/download/mdbindex2.html",
+      "sha256": "37d6281b1daf9bbd3b0c9550cc662cbd2445ade09839bc73a9efaa8506fcd237",
+      "size": 55158303
+    },
+    {
+      "id": "access2016",
+      "filename": "accessdatabaseengine_X64.exe",
+      "url": "https://download.microsoft.com/download/3/5/c/35c84c36-661a-44e6-9324-8786b8dbe231/accessdatabaseengine_X64.exe",
+      "source_page": "https://www.microsoft.com/en-us/download/details.aspx?id=54920",
+      "sha256": "04e96c9f1a1f7d251a88aececf1dc10ff65950392787427c00814a43308003de",
+      "size": 83400344
+    },
+    {
+      "id": "dotnet35",
+      "filename": "dotnetfx35.exe",
+      "url": "https://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe",
+      "source_page": "https://www.microsoft.com/en-us/download/details.aspx?id=25150",
+      "sha256": "0582515bde321e072f8673e829e175ed2e7a53e803127c50253af76528e66bc1",
+      "size": 242743296
+    }
+  ]
+}

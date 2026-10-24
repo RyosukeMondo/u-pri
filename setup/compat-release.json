@@ -1,0 +1,14 @@
+{
+  "url": "https://github.com/RyosukeMondo/u-pri/releases/download/v0.1.0/upri-compat-v0.1.0.zip",
+  "sha256": "85cc4da921fb50edb48689a937001b4cbc226dc330955a2aaeb67cf780cc1534",
+  "size": 769226,
+  "files": [
+    "register-framework-gac.exe",
+    "wine_ui_probe.exe",
+    "mac-runtime-probe.exe",
+    "mac-db64.exe",
+    "mac-identity.exe",
+    "upri_ace_datainit.dll",
+    "upri_wmi_path.dll"
+  ]
+}

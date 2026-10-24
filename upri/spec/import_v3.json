@@ -1,0 +1,737 @@
+{
+  "meta": {
+    "id": "import_v3",
+    "title": "取込 標準フォーマットv3",
+    "kind": "import",
+    "source": "日本郵便「フィルタ設定別冊（フォーマット一覧）」2024-10-01",
+    "file": {
+      "format": "CSV（カンマ／タブ区切り、区切り文字はカンマ）",
+      "encoding": "Shift-JIS または UTF-8",
+      "header": false,
+      "quote": "値に「,」を含む場合のみ全項目をダブルクォーテーションで囲む"
+    },
+    "detail": {
+      "type": "固定明細",
+      "max": 30,
+      "default": 3,
+      "field_nos": [
+        82,
+        83,
+        84,
+        85,
+        86,
+        87
+      ]
+    }
+  },
+  "groups": [
+    "共通情報・送り状",
+    "お届け先",
+    "ご依頼主",
+    "荷物・取扱情報",
+    "記事・フリー項目",
+    "代金引換",
+    "配送種類・拠点受取",
+    "商品明細"
+  ],
+  "fields": [
+    {
+      "no": 1,
+      "group": "共通情報・送り状",
+      "name": "お客様側管理番号",
+      "bytes": null,
+      "required": false,
+      "note": "お客様側で運用する管理番号等"
+    },
+    {
+      "no": 2,
+      "group": "共通情報・送り状",
+      "name": "お問い合わせ番号",
+      "bytes": null,
+      "required": false,
+      "note": "お問い合わせ番号付きデータ取込の場合のみ必須"
+    },
+    {
+      "no": 3,
+      "group": "共通情報・送り状",
+      "name": "代表お問い合わせ番号",
+      "bytes": null,
+      "required": false,
+      "note": "現状利用不可"
+    },
+    {
+      "no": 4,
+      "group": "共通情報・送り状",
+      "name": "発送予定日",
+      "bytes": 8,
+      "required": false,
+      "format": "YYYYMMDD",
+      "note": "100日後まで指定可能"
+    },
+    {
+      "no": 5,
+      "group": "共通情報・送り状",
+      "name": "発送予定時間区分",
+      "bytes": null,
+      "required": false
+    },
+    {
+      "no": 6,
+      "group": "共通情報・送り状",
+      "name": "郵便種別",
+      "bytes": 1,
+      "required": false,
+      "enum": "郵便種別_取込v3"
+    },
+    {
+      "no": 7,
+      "group": "共通情報・送り状",
+      "name": "保冷種別",
+      "bytes": 1,
+      "required": false,
+      "enum": "保冷種別"
+    },
+    {
+      "no": 8,
+      "group": "共通情報・送り状",
+      "name": "元／着払／代引",
+      "bytes": 1,
+      "required": false,
+      "enum": "元着払代引"
+    },
+    {
+      "no": 9,
+      "group": "共通情報・送り状",
+      "name": "書留／セキュリティ／特定記録種別",
+      "bytes": 1,
+      "required": false,
+      "enum": "書留種別"
+    },
+    {
+      "no": 10,
+      "group": "共通情報・送り状",
+      "name": "送り状種別",
+      "bytes": 20,
+      "required": false,
+      "note": "送り状コードを指定。docs/送り状種別コード一覧.md 参照"
+    },
+    {
+      "no": 11,
+      "group": "お届け先",
+      "name": "お届け先 検索キー",
+      "bytes": null,
+      "required": false,
+      "note": "顧客コード（マスタ参照・登録キー）"
+    },
+    {
+      "no": 12,
+      "group": "お届け先",
+      "name": "お届け先 郵便番号",
+      "bytes": 7,
+      "required": false,
+      "note": "半角7桁のみ・ハイフン不可"
+    },
+    {
+      "no": 13,
+      "group": "お届け先",
+      "name": "お届け先 住所",
+      "bytes": 50,
+      "required": false,
+      "note": "住所〜住所3で合算 全角75/半角150。住所〜住所3へ自動分割"
+    },
+    {
+      "no": 14,
+      "group": "お届け先",
+      "name": "お届け先 住所２",
+      "bytes": 50,
+      "required": false,
+      "note": "合算対象"
+    },
+    {
+      "no": 15,
+      "group": "お届け先",
+      "name": "お届け先 住所３",
+      "bytes": 50,
+      "required": false,
+      "note": "合算対象"
+    },
+    {
+      "no": 16,
+      "group": "お届け先",
+      "name": "お届け先 名称",
+      "bytes": 50,
+      "required": false,
+      "note": "名称2と合算 全角50/半角100。自動2分割"
+    },
+    {
+      "no": 17,
+      "group": "お届け先",
+      "name": "お届け先 名称２",
+      "bytes": 50,
+      "required": false,
+      "note": "合算対象"
+    },
+    {
+      "no": 18,
+      "group": "お届け先",
+      "name": "お届け先 敬称区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "敬称区分"
+    },
+    {
+      "no": 19,
+      "group": "お届け先",
+      "name": "お届け先 電話番号",
+      "bytes": 20,
+      "required": false,
+      "note": "半角のみ・ハイフン可"
+    },
+    {
+      "no": 20,
+      "group": "お届け先",
+      "name": "お届け先 メールアドレス",
+      "bytes": 100,
+      "required": false,
+      "note": "局留め/お届け予定/ご不在連絡メール使用時に必須"
+    },
+    {
+      "no": 21,
+      "group": "お届け先",
+      "name": "お届け先 局留め区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "局留め区分"
+    },
+    {
+      "no": 22,
+      "group": "お届け先",
+      "name": "お届け先 局留め郵便局名",
+      "bytes": null,
+      "required": false,
+      "note": "局留め区分と同時に取込"
+    },
+    {
+      "no": 23,
+      "group": "お届け先",
+      "name": "お届け先 局留め郵便番号",
+      "bytes": 8,
+      "required": false,
+      "note": "局留め区分と同時に取込"
+    },
+    {
+      "no": 24,
+      "group": "お届け先",
+      "name": "郵便局留めメール利用区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "不要必要"
+    },
+    {
+      "no": 25,
+      "group": "お届け先",
+      "name": "お届け予定メール利用区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "不要必要"
+    },
+    {
+      "no": 26,
+      "group": "お届け先",
+      "name": "ご不在連絡メール利用区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "不要必要"
+    },
+    {
+      "no": 27,
+      "group": "ご依頼主",
+      "name": "ご依頼主 検索キー",
+      "bytes": null,
+      "required": false,
+      "note": "顧客コード（マスタ参照・登録キー）"
+    },
+    {
+      "no": 28,
+      "group": "ご依頼主",
+      "name": "ご依頼主 郵便番号",
+      "bytes": 8,
+      "required": false,
+      "note": "半角のみ・ハイフン可"
+    },
+    {
+      "no": 29,
+      "group": "ご依頼主",
+      "name": "ご依頼主 住所",
+      "bytes": 50,
+      "required": false,
+      "note": "合算 全角75/半角150。自動3分割"
+    },
+    {
+      "no": 30,
+      "group": "ご依頼主",
+      "name": "ご依頼主 住所２",
+      "bytes": 50,
+      "required": false,
+      "note": "合算対象"
+    },
+    {
+      "no": 31,
+      "group": "ご依頼主",
+      "name": "ご依頼主 住所３",
+      "bytes": 50,
+      "required": false,
+      "note": "合算対象"
+    },
+    {
+      "no": 32,
+      "group": "ご依頼主",
+      "name": "ご依頼主 名称",
+      "bytes": 50,
+      "required": false,
+      "note": "名称2と合算 全角50/半角100。自動2分割"
+    },
+    {
+      "no": 33,
+      "group": "ご依頼主",
+      "name": "ご依頼主 名称２",
+      "bytes": 50,
+      "required": false,
+      "note": "合算対象"
+    },
+    {
+      "no": 34,
+      "group": "ご依頼主",
+      "name": "ご依頼主 敬称区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "敬称区分"
+    },
+    {
+      "no": 35,
+      "group": "ご依頼主",
+      "name": "ご依頼主 電話番号",
+      "bytes": 20,
+      "required": false,
+      "note": "半角のみ・ハイフン可"
+    },
+    {
+      "no": 36,
+      "group": "ご依頼主",
+      "name": "ご依頼主 メールアドレス",
+      "bytes": 100,
+      "required": false,
+      "note": "お届け完了メール使用時に必須"
+    },
+    {
+      "no": 37,
+      "group": "ご依頼主",
+      "name": "お届け完了メール利用区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "不要必要"
+    },
+    {
+      "no": 38,
+      "group": "ご依頼主",
+      "name": "ご依頼主 お届け通知はがき使用区分",
+      "bytes": null,
+      "required": false,
+      "note": "現状利用不可"
+    },
+    {
+      "no": 39,
+      "group": "荷物・取扱情報",
+      "name": "受注番号",
+      "bytes": null,
+      "required": false,
+      "note": "null固定（設定できません）"
+    },
+    {
+      "no": 40,
+      "group": "荷物・取扱情報",
+      "name": "注文日",
+      "bytes": null,
+      "required": false,
+      "note": "null固定（設定できません）"
+    },
+    {
+      "no": 41,
+      "group": "荷物・取扱情報",
+      "name": "こわれもの区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "ありなし"
+    },
+    {
+      "no": 42,
+      "group": "荷物・取扱情報",
+      "name": "なまもの区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "ありなし"
+    },
+    {
+      "no": 43,
+      "group": "荷物・取扱情報",
+      "name": "ビン類区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "ありなし"
+    },
+    {
+      "no": 44,
+      "group": "荷物・取扱情報",
+      "name": "逆さま厳禁区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "ありなし"
+    },
+    {
+      "no": 45,
+      "group": "荷物・取扱情報",
+      "name": "下積み厳禁区分",
+      "bytes": 1,
+      "required": false,
+      "enum": "ありなし"
+    },
+    {
+      "no": 46,
+      "group": "荷物・取扱情報",
+      "name": "商品サイズ／厚さ区分",
+      "bytes": null,
+      "required": false,
+      "note": "ゆうパックの商品サイズ／ゆうパケットの厚さ区分"
+    },
+    {
+      "no": 47,
+      "group": "荷物・取扱情報",
+      "name": "重量合計（ｇ）",
+      "bytes": null,
+      "required": false,
+      "note": "郵便の重量。null固定（設定できません）"
+    },
+    {
+      "no": 48,
+      "group": "荷物・取扱情報",
+      "name": "書留 損害要償額",
+      "bytes": null,
+      "required": false,
+      "note": "ゆうパックのセキュリティ／郵便の書留の損害要償額"
+    },
+    {
+      "no": 49,
+      "group": "荷物・取扱情報",
+      "name": "速達／配達日指定種別",
+      "bytes": 1,
+      "required": false,
+      "enum": "速達配達日指定種別"
+    },
+    {
+      "no": 50,
+      "group": "荷物・取扱情報",
+      "name": "配達希望日",
+      "bytes": 8,
+      "required": false,
+      "format": "YYYYMMDD",
+      "note": "ゆうパックの配達希望日／配達時間帯指定郵便の配達指定日"
+    },
+    {
+      "no": 51,
+      "group": "荷物・取扱情報",
+      "name": "配達時間帯区分",
+      "bytes": 2,
+      "required": false,
+      "note": "ゆうパックの配達希望時間帯／配達時間帯指定郵便の配達指定時間帯区分"
+    },
+    {
+      "no": 52,
+      "group": "荷物・取扱情報",
+      "name": "ゆうパック複数個割引",
+      "bytes": 1,
+      "required": false,
+      "enum": "割引適用"
+    },
+    {
+      "no": 53,
+      "group": "荷物・取扱情報",
+      "name": "ゆうパック同一割引",
+      "bytes": 1,
+      "required": false,
+      "enum": "割引適用"
+    },
+    {
+      "no": 54,
+      "group": "荷物・取扱情報",
+      "name": "複数個口数",
+      "bytes": null,
+      "required": false
+    },
+    {
+      "no": 55,
+      "group": "記事・フリー項目",
+      "name": "記事名１",
+      "bytes": 50,
+      "required": false,
+      "note": "全角25/半角50"
+    },
+    {
+      "no": 56,
+      "group": "記事・フリー項目",
+      "name": "記事名２",
+      "bytes": 50,
+      "required": false,
+      "note": "全角25/半角50"
+    },
+    {
+      "no": 57,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０１",
+      "bytes": 50,
+      "required": false,
+      "note": "代金引換まとめ送金の精算書反映／拠点受取の受注番号"
+    },
+    {
+      "no": 58,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０２",
+      "bytes": 50,
+      "required": false,
+      "note": "代金引換まとめ送金の精算書反映"
+    },
+    {
+      "no": 59,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０３",
+      "bytes": 50,
+      "required": false,
+      "note": "拠点受取の備考3"
+    },
+    {
+      "no": 60,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０４",
+      "bytes": 50,
+      "required": false,
+      "note": "拠点受取の備考4"
+    },
+    {
+      "no": 61,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０５",
+      "bytes": 50,
+      "required": false,
+      "note": "拠点受取の備考5"
+    },
+    {
+      "no": 62,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０６",
+      "bytes": 50,
+      "required": false,
+      "note": "拠点受取の予備"
+    },
+    {
+      "no": 63,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０７",
+      "bytes": 50,
+      "required": false,
+      "note": "拠点受取の予備"
+    },
+    {
+      "no": 64,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０８",
+      "bytes": 50,
+      "required": false
+    },
+    {
+      "no": 65,
+      "group": "記事・フリー項目",
+      "name": "フリー項目０９",
+      "bytes": 50,
+      "required": false
+    },
+    {
+      "no": 66,
+      "group": "記事・フリー項目",
+      "name": "フリー項目１０",
+      "bytes": 50,
+      "required": false
+    },
+    {
+      "no": 67,
+      "group": "代金引換",
+      "name": "代引金額",
+      "bytes": null,
+      "required": false,
+      "note": "30万円超は取込不可（条件は取込バリデーション条件.md 参照）"
+    },
+    {
+      "no": 68,
+      "group": "代金引換",
+      "name": "代引消費税金額",
+      "bytes": null,
+      "required": false
+    },
+    {
+      "no": 69,
+      "group": "配送種類・拠点受取",
+      "name": "お客様指定配送種類",
+      "bytes": 20,
+      "required": false,
+      "note": "全角10/半角20。1:n変換のキー"
+    },
+    {
+      "no": 70,
+      "group": "配送種類・拠点受取",
+      "name": "予備１",
+      "bytes": null,
+      "required": false,
+      "note": "未使用項目"
+    },
+    {
+      "no": 71,
+      "group": "配送種類・拠点受取",
+      "name": "予約・確定識別コード",
+      "bytes": null,
+      "required": false,
+      "enum": "予約確定識別コード"
+    },
+    {
+      "no": 72,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等判別コード",
+      "bytes": 1,
+      "required": false,
+      "enum": "コンビニ等判別コード"
+    },
+    {
+      "no": 73,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等受取 通販業者コード",
+      "bytes": 6,
+      "required": false,
+      "note": "楽天=510001（半角6桁）。指定場所ダイレクト時は希望場所コード"
+    },
+    {
+      "no": 74,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等受取 コンビニコード",
+      "bytes": 4,
+      "required": false,
+      "note": "引取店舗のコンビニ等コード（半角4桁）"
+    },
+    {
+      "no": 75,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等受取 コンビニ名",
+      "bytes": null,
+      "required": false,
+      "note": "判別コード1・2で必須"
+    },
+    {
+      "no": 76,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等受取 店舗コード",
+      "bytes": null,
+      "required": false,
+      "note": "局窓口受取は固定値999999"
+    },
+    {
+      "no": 77,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等受取 店舗名",
+      "bytes": null,
+      "required": false,
+      "note": "コンビニ受取で必須"
+    },
+    {
+      "no": 78,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等受取 認証番号",
+      "bytes": 11,
+      "required": false,
+      "note": "半角数字・最大11文字。コンビニ受取で必須"
+    },
+    {
+      "no": 79,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等受取 備考１",
+      "bytes": null,
+      "required": false,
+      "note": "地図URL等"
+    },
+    {
+      "no": 80,
+      "group": "配送種類・拠点受取",
+      "name": "コンビニ等受取 備考２",
+      "bytes": null,
+      "required": false,
+      "note": "コンビニURL等"
+    },
+    {
+      "no": 81,
+      "group": "商品明細",
+      "name": "予備２",
+      "bytes": null,
+      "required": false,
+      "note": "未使用項目"
+    },
+    {
+      "no": 82,
+      "group": "商品明細",
+      "name": "商品番号",
+      "bytes": null,
+      "required": false,
+      "detail": true,
+      "note": "固定値設定時は固定値優先"
+    },
+    {
+      "no": 83,
+      "group": "商品明細",
+      "name": "品名",
+      "bytes": 50,
+      "required": false,
+      "detail": true,
+      "note": "全角25/半角50。固定値優先"
+    },
+    {
+      "no": 84,
+      "group": "商品明細",
+      "name": "個数",
+      "bytes": null,
+      "required": false,
+      "detail": true,
+      "note": "固定値優先"
+    },
+    {
+      "no": 85,
+      "group": "商品明細",
+      "name": "単価",
+      "bytes": null,
+      "required": false,
+      "detail": true,
+      "note": "内税。固定値優先"
+    },
+    {
+      "no": 86,
+      "group": "商品明細",
+      "name": "消費税率区分",
+      "bytes": 2,
+      "required": false,
+      "detail": true,
+      "enum": "消費税率区分"
+    },
+    {
+      "no": 87,
+      "group": "商品明細",
+      "name": "金額",
+      "bytes": null,
+      "required": false,
+      "detail": true,
+      "note": "単価×個数。固定値優先"
+    }
+  ]
+}

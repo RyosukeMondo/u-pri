@@ -1,0 +1,14 @@
+name: local-api
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  api:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen --python 3.12
+      - run: uv run pytest tests/test_api.py tests/test_dashboard.py tests/test_local_setup.py
+      - run: uv run python scripts/smoke.py

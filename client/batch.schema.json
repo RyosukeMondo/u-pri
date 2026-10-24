@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "Address": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 150,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "postal_code": {
+          "pattern": "^[0-9]{7}$",
+          "title": "Postal Code",
+          "type": "string"
+        },
+        "address1": {
+          "maxLength": 150,
+          "minLength": 1,
+          "title": "Address1",
+          "type": "string"
+        },
+        "address2": {
+          "default": "",
+          "maxLength": 50,
+          "title": "Address2",
+          "type": "string"
+        },
+        "address3": {
+          "default": "",
+          "maxLength": 50,
+          "title": "Address3",
+          "type": "string"
+        },
+        "phone": {
+          "pattern": "^[0-9][0-9-]{8,19}$",
+          "title": "Phone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "postal_code",
+        "address1",
+        "phone"
+      ],
+      "title": "Address",
+      "type": "object"
+    },
+    "Item": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 150,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "quantity": {
+          "default": 1,
+          "maximum": 999,
+          "minimum": 1,
+          "title": "Quantity",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Item",
+      "type": "object"
+    },
+    "Shipment": {
+      "additionalProperties": false,
+      "properties": {
+        "reference": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,19}$",
+          "title": "Reference",
+          "type": "string"
+        },
+        "ship_date": {
+          "format": "date",
+          "title": "Ship Date",
+          "type": "string"
+        },
+        "recipient": {
+          "$ref": "#/$defs/Address"
+        },
+        "sender": {
+          "$ref": "#/$defs/Address"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "reference",
+        "ship_date",
+        "recipient",
+        "sender",
+        "items"
+      ],
+      "title": "Shipment",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "shipments": {
+      "items": {
+        "$ref": "#/$defs/Shipment"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Shipments",
+      "type": "array"
+    }
+  },
+  "required": [
+    "shipments"
+  ],
+  "title": "Batch",
+  "type": "object"
+}
