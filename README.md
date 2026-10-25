@@ -38,7 +38,7 @@ uv run python scripts/local.py doctor
 |---|---|---|
 | Windows 11 | 日本郵便の公式インストーラー・現行手順を使用 | 公式対応OS。プロジェクトの実機印刷検証は未実施 |
 | Mac | 同じMac内にWine＋Microsoft .NET＋Access 2016＋ゆうプリRを取得・構築 | 実験版。Mac M4でDB・端末識別・会員認証画面まで確認 |
-| Linux | 同じLinux内にWine＋同じMicrosoft部品＋ゆうプリRを構築 | 実験版。既存Ubuntu環境の認証画面を確認。新しい汎用導入コマンドの結果は検証記録参照 |
+| Linux | 同じLinux内にWine＋同じMicrosoft部品＋ゆうプリRを構築 | 実験版。Ubuntuの新規構築でDB・端末識別・会員認証画面まで確認 |
 
 Mac/Linux試験版（GUIセッションのTerminalで実行）：
 
@@ -48,7 +48,7 @@ uv run python setup/desktop.py registration
 ```
 
 Wine・Rosettaなどの条件、取得元、再実行・削除方法は **[OS別セットアップ](docs/standalone.md)** を読んでください。
-MacではWineを配布元から自動取得します。LinuxではローカルにWineと7zの導入が必要です。
+MacではWineを配布元から自動取得します。LinuxではローカルにWine・7z・msiextractの導入が必要です。
 Microsoft・日本郵便のソフトは公式配布元から直接取得し、ここには同梱しません。
 自作互換部品のみGitHub ReleaseからSHA-256照合して取得します。
 

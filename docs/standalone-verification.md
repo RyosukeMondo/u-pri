@@ -27,4 +27,21 @@ Windows shipping, Japan Post authentication, official label generation, physical
 - Independent review found missing optional-gallery assets, stale/private doc links,
   and Windows default-encoding exposure. Corrected with conditional gallery display,
   public doc links and explicit UTF-8; no obvious credentials/vendor binaries in source.
-- Windows CI and the generic fresh Linux desktop installer are pending at this initial commit.
+- Public GitHub clone on Mac: local setup re-run preserved data/key; API was restarted
+  from that checkout, doctor passed and 24 release tests passed. The Mac downloaded
+  the public helper Release asset directly and verified its exact size and SHA-256.
+- [GitHub CI](https://github.com/RyosukeMondo/u-pri/actions/runs/40144884732):
+  Windows, macOS and Ubuntu all passed the 24 API/dashboard/local-setup tests and
+  real HTTP 100-row restart/retry/history smoke. These hosted tests do not exercise
+  Wine, Japan Post authentication or physical printers.
+- Ubuntu x86_64 / Wine9: the final fresh desktop.py replay passed DB, identity,
+  actual registration UI and checked process shutdown, using a local Xvfb display.
+  Official downloads were cached/rehashed; own helpers were fetched from the public
+  GitHub Release. No other PC or existing installed prefix was used.
+  Wine9 did not implement the MSI ADMIN action used on Mac, so Linux now uses
+  msiextract for the official .NET35 and application MSI images. First-run UI
+  initialization exceeded 12 seconds; bounded polling (up to 90 seconds) replaced
+  the fixed sleep. Initial failed trial prefixes were never reported as successes.
+- These are same-computer compatibility trials up to the authentication screen.
+  Supplier terms, Rosetta on Apple Silicon, Wine/msitools on Linux and a local GUI
+  remain prerequisites. Authentication and official shipping remain unverified.

@@ -1,6 +1,7 @@
 # Experimental Wine 9 compatibility adapters
 
-These are source-only experiments for the isolated Ubuntu x64 prefix. They are
+These are own-source experiments for isolated x64 Wine prefixes. Own compiled
+helpers are also provided in the GitHub preview Release. They are
 not a complete MDAC/WMI replacement, a supported Japan Post install recipe, or
 evidence of working label printing. No vendor binaries/passwords are included.
 

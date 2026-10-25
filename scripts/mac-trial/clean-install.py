@@ -65,7 +65,10 @@ if not p.exists() or 'oledb_constructor=success' not in p.read_text(encoding='ut
 run(['winecfg','-v','win10'],'win10')
 net35=work/'net35';net35.mkdir()
 unpack(extract/'wcu/dotNetFramework/dotNetFX35/x64/netfx35_x64.exe',net35)
-run(['msiexec','/a',win(net35/'vs_setup.msi'),r'TARGETDIR=C:\upri-net35','/qn','/L*v',win(logs/'net35-admin-detail.log')],'net35-admin',120)
+if sys.platform=='darwin':
+ run(['msiexec','/a',win(net35/'vs_setup.msi'),r'TARGETDIR=C:\upri-net35','/qn','/L*v',win(logs/'net35-admin-detail.log')],'net35-admin',120)
+else:
+ subprocess.run(['msiextract','-C',str(prefix/'drive_c/upri-net35'),str(net35/'vs_setup.msi')],check=True,stdout=subprocess.DEVNULL)
 cores=list((prefix/'drive_c/upri-net35').rglob('System.Core.dll'))
 if not cores:raise RuntimeError('No System.Core in official .NET3.5 administrative image')
 for index,core in enumerate(cores):
@@ -73,7 +76,10 @@ for index,core in enumerate(cores):
  run([win(helpers/'register-framework-gac.exe'),directory],'gac35-'+str(index))
 
 run([win(assets/'accessdatabaseengine_X64.exe'),'/quiet','/norestart'],'access2016',180)
-run(['msiexec','/a',win(appfiles/'YprMDB_Setup_x64.msi'),r'TARGETDIR=C:\ゆうプリR','/qn','/L*v',win(logs/'app-msi-detail.log')],'yuprir-admin-extract',180)
+if sys.platform=='darwin':
+ run(['msiexec','/a',win(appfiles/'YprMDB_Setup_x64.msi'),r'TARGETDIR=C:\ゆうプリR','/qn','/L*v',win(logs/'app-msi-detail.log')],'yuprir-admin-extract',180)
+else:
+ subprocess.run(['msiextract','-C',str(prefix/'drive_c/ゆうプリR'),str(appfiles/'YprMDB_Setup_x64.msi')],check=True,stdout=subprocess.DEVNULL)
 import shutil
 for cls,dll in [('{2206CDB0-19C1-11D1-89E0-00C04FD7A829}','upri_ace_datainit.dll'),('{2206CDB2-19C1-11D1-89E0-00C04FD7A829}','upri_ace_datainit.dll'),('{CF4CC405-E2C5-4DDD-B3CE-5E7582D8C9FA}','upri_wmi_path.dll')]:
  shutil.copyfile(helpers/dll,prefix/'drive_c/windows/system32'/dll)
@@ -87,9 +93,14 @@ for name in ['db.txt','identity.txt']:
  print(name+'='+(p.read_text(encoding='utf-8-sig') if p.exists() else 'missing'),flush=True)
 with (logs/'registration.log').open('wb') as f:
  p=subprocess.Popen([str(r/'wine'),r'C:\ゆうプリR\420107Z02P04V02.exe'],cwd=prefix/'drive_c/ゆうプリR',env=e,stdout=f,stderr=subprocess.STDOUT)
- time.sleep(12)
-run([win(helpers/'wine_ui_probe.exe'),'420107Z02P04V02.exe'],'registration-ui',20)
-ui=(logs/'registration-ui.log').read_text(errors='replace')
+ # First-run initialization varies by Wine/host; check actual UI rather than a fixed delay.
+ deadline=time.monotonic()+90
+ while True:
+  time.sleep(3)
+  run([win(helpers/'wine_ui_probe.exe'),'420107Z02P04V02.exe'],'registration-ui',20)
+  ui=(logs/'registration-ui.log').read_text(encoding='utf-8',errors='replace')
+  if all(x in ui for x in ['matched_executable=420107Z02P04V02.exe','会員番号','パソコンID','認証']):break
+  if 'Application Error' in ui or time.monotonic()>=deadline or p.poll() is not None:break
 db=(logs/'db.txt').read_text(encoding='utf-8-sig')
 identity=(logs/'identity.txt').read_text(encoding='utf-8-sig')
 result={'mode':'experimental_portable','standard_msi_install':False,'shipping_verified':False,

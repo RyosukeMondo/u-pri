@@ -22,7 +22,9 @@ def download(url, target, sha, size=None):
     if target.is_symlink():
         raise RuntimeError('Refusing symlink download')
     if target.exists():
-        if hashlib.file_digest(target.open('rb'), 'sha256').hexdigest() != sha:
+        with target.open('rb') as cached:
+            actual_sha = hashlib.file_digest(cached, 'sha256').hexdigest()
+        if actual_sha != sha:
             raise RuntimeError('Cached download mismatch; preserve it and choose a fresh directory')
         return target
     fd, tmp = tempfile.mkstemp(dir=target.parent, prefix='.download-')
@@ -97,8 +99,10 @@ def main():
         else:
             if not os.environ.get('DISPLAY') and not os.environ.get('WAYLAND_DISPLAY'):
                 raise RuntimeError('Run from the Linux graphical desktop terminal')
-            if not shutil.which('7z'):
-                raise RuntimeError('Install p7zip-full locally first')
+            if platform.machine() not in ('x86_64', 'AMD64'):
+                raise RuntimeError('The Linux desktop trial requires x86_64')
+            if not shutil.which('7z') or not shutil.which('msiextract'):
+                raise RuntimeError('Install p7zip-full and msitools locally first')
             runtime = a.wine_bin or Path(shutil.which('wine') or '/missing/wine').parent
         for name in ['wine', 'wineserver']:
             if not (runtime / name).is_file():

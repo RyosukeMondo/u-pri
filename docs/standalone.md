@@ -66,9 +66,9 @@ DB接続・端末識別・実アプリの認証画面という3つの検査で�
 
 APIと操作画面は共通コマンドでネイティブ実行します。
 本体の実験にはx86_64 LinuxのGUIセッション、Wine（wineとwineserver）、7zが必要です。
-Ubuntuでは管理者がローカルに`wine`・`p7zip-full`を用意し、同じPCのTerminalで上記のdesktopコマンドを実行します。
+Ubuntuでは管理者がローカルに`wine`・`p7zip-full`・`msitools`を用意し、同じPCのTerminalで上記のdesktopコマンドを実行します。
 `--wine-bin /path/to/bin`でWineを選択できます。Wineは自動ダウンロードしません。
-Linux用の汎用スクリプトはMacの試験手順を移植したもので、既存Ubuntuの成功と新規導入成功は区別します。
+LinuxのWine 9はMSI管理用展開の一部を扱えないため、msitoolsのmsiextractで公式MSIを展開します。汎用スクリプトの新規構築でもDB・端末識別・認証画面を確認しました（ローカルXvfb画面で試験）。
 最新の結果は[検証記録](standalone-verification.md)を参照してください。
 
 ## 再実行・容量・片付け
